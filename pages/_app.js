@@ -1,5 +1,12 @@
 import "@/styles/globals.css";
+import { SessionProvider } from "next-auth/react";
+// session provider allows us to hold state of the session throughout the entire app
+// can't use the session hook without the session provider
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+export default function App({ Component, pageProps : { session, ...pageProps }}) {
+  return (
+    <SessionProvider session={session}>
+        <Component {...pageProps} />
+    </SessionProvider>
+    );
 }
