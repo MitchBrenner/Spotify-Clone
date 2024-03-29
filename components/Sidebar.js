@@ -1,15 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { HomeIcon, MagnifyingGlassIcon, BuildingLibraryIcon, PlusCircleIcon, HeartIcon, RssIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { signOut, useSession } from 'next-auth/react';
+import useSpotify from '@/hooks/useSpotify';
+import { useRecoilState } from 'recoil';
+import { playlistIdState } from '@/atoms/playlistAtom';
 
 function Sidebar() {
 
+    const spotifyApi = useSpotify();
     const { data : session, status } = useSession();
+    const [playlists, setPlaylists] = useState(null);
+    const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
 
-    console.log(session)
+    useEffect(() => {
+        if (spotifyApi.getAccessToken()){
+            spotifyApi.getUserPlaylists()
+            .then((data) => {
+                setPlaylists(data.body.items)
+            })
+        }
+    }, [session, spotifyApi]);
+
+    console.log("You picked >>> ", playlistId)
 
   return (
-    <div className='text-gray-500 p-5 border-r border-gray-900 overflow-y-scroll h-screen scrollbar-hide'>
+    <div className='text-gray-500 p-5 border-r border-gray-900 overflow-y-scroll 
+    h-screen scrollbar-hide text-xs lg:text-sm sm:max-w-[12rem] lg:max-w-[15rem]
+    hidden md:inline-flex pb-36'>
         <div className='space-y-4'>
             <button 
             onClick={() => signOut()}
@@ -48,24 +65,13 @@ function Sidebar() {
 
             <hr className='border-t-[0.1px] bordder-gray-900'/>
 
-
-
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
-            <p className='cursor-pointer hover:text-white'>Playlist...</p>
+            {
+                playlists?.map((playlist) => (
+                    <p onClick={() => setPlaylistId(playlist.id)} key={playlist.id} className='cursor-pointer hover:text-white'>
+                        {playlist.name}
+                    </p>
+                ))
+            }
 
         </div>
     </div>

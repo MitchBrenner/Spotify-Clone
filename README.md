@@ -43,11 +43,21 @@ Using spotify API
 Utilizing [Spotify Web API Node](https://github.com/thelinmichael/spotify-web-api-node) for helper functions
 
 ```bash
-$ npm install spotify-web-api-node
+npm install spotify-web-api-node
 ```
 
 `page/api/auth/[...nextauth].js` and `lib/spotify.js` are the main files for authentication and spotify API calls
 
 
+## State Management
 
+Using [recoil](https://recoiljs.org/) for state management
+
+```bash
+npm install recoil
+```
+
+- `recoil` is used to manage states such as playlist
+- must wrap the app with `RecoilRoot` in `pages/_app.js`
+- all the states are in the `atoms` folder
 
