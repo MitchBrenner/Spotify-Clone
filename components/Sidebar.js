@@ -24,9 +24,9 @@ function Sidebar() {
     console.log("You picked >>> ", playlistId)
 
   return (
-    <div className='text-gray-500 p-5 border-r border-gray-900 overflow-y-scroll 
+    <div className='text-gray-500 pb-100 p-5 border-r border-gray-900 overflow-y-scroll 
     h-screen scrollbar-hide text-xs lg:text-sm sm:max-w-[12rem] lg:max-w-[15rem]
-    hidden md:inline-flex pb-36'>
+    hidden md:inline-flex'>
         <div className='space-y-4'>
             <button 
             onClick={() => signOut()}
@@ -64,7 +64,8 @@ function Sidebar() {
             </button>
 
             <hr className='border-t-[0.1px] bordder-gray-900'/>
-
+            <div className='text-gray-500 text-xs lg:text-sm sm:max-w-[12rem] lg:max-w-[15rem]
+                hidden md:inline-flex flex-col space-y-4 pb-[100px]'>
             {
                 playlists?.map((playlist) => (
                     <p onClick={() => setPlaylistId(playlist.id)} key={playlist.id} className='cursor-pointer hover:text-white'>
@@ -72,6 +73,7 @@ function Sidebar() {
                     </p>
                 ))
             }
+            </div>
 
         </div>
     </div>
