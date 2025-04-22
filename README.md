@@ -1,63 +1,64 @@
-# Spotify Clone
+# 🎧 Spotify Web App Clone
 
-## Getting Started
+Live demo: [spotify-red-delta.vercel.app](https://spotify-red-delta.vercel.app)
 
-First, run the development server:
+A modern, responsive Spotify clone that connects with the real Spotify API, allowing users to browse playlists, authenticate securely, and control playback using their actual Spotify account.
 
-```bash
-npm run dev
-```
+**Note:** You must have the Spotify app open on your device in order to play songs — this is a limitation of Spotify's API.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-## Frontend
+## 🚀 Features
 
-### Styling
+- Login with your Spotify account via OAuth
+- Browse your personal playlists
+- View and control playback
+- Dynamic, responsive UI
+- Hover and animation effects for rich interactivity
 
-Tailwind CSS
+---
 
-To hide scrollbar I used [tailwind-scrollbar-hide](https://www.npmjs.com/package/tailwind-scrollbar-hide), must add to tailwind pluggins
-```bash
-npm install tailwind-scrollbar-hide
-```
+## 🎨 Frontend
 
-The icons are from [https://heroicons.com/](https://heroicons.com/)
+This project uses **Tailwind CSS** for styling and layout.  
+Custom scrollbars are hidden using the `tailwind-scrollbar-hide` plugin.
 
+Icons are provided by **Heroicons** for a modern and clean look.
 
-```bash
-npm install @heroicons/react
-```
+---
 
-[Lodash for utility functions](https://lodash.com/)
+## 🔐 Authentication
 
-## Auth
+Authentication is handled using **NextAuth.js** with Spotify as the provider.  
+Middleware is used to protect sensitive routes so that only authenticated users can access core features of the app.
 
-Used [`next-auth`](https://next-auth.js.org/getting-started/example) for authentication
+---
 
-Used middleware to protect routes
+## 🎵 Spotify Integration
 
-## Spotify
+This app connects to the **Spotify Web API** using the `spotify-web-api-node` library.  
+Helper functions in `lib/spotify.js` and configuration in `pages/api/auth/[...nextauth].js` power the API requests, manage tokens, and control playback.
 
-Using spotify API
+You must have your Spotify app open to enable music playback through this interface — required by Spotify’s API policy.
 
-Utilizing [Spotify Web API Node](https://github.com/thelinmichael/spotify-web-api-node) for helper functions
+---
 
-```bash
-npm install spotify-web-api-node
-```
+## ⚛️ State Management
 
-`page/api/auth/[...nextauth].js` and `lib/spotify.js` are the main files for authentication and spotify API calls
+App state is managed using **Recoil**, a lightweight and flexible state management library.
 
+Recoil is used to manage things like:
 
-## State Management
+- The currently selected playlist
+- The currently playing song
+- Whether a song is playing or paused
 
-Using [recoil](https://recoiljs.org/) for state management
+All state atoms/selectors are organized in the `atoms` folder. The app is wrapped in `RecoilRoot` to provide global state access across pages and components.
 
-```bash
-npm install recoil
-```
+---
 
-- `recoil` is used to manage states such as playlist
-- must wrap the app with `RecoilRoot` in `pages/_app.js`
-- all the states are in the `atoms` folder
+## 📌 Reminder
 
+Spotify's API requires a Spotify Premium account and an open Spotify app session to control playback. Without this, you can still browse playlists but playback controls may not function.
+
+---
